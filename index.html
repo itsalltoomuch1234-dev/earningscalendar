@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Earnings Calendar</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #0f1117;
+            color: #e0e0e0;
+            padding: 24px;
+        }
+        h1 {
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 4px;
+            color: #ffffff;
+        }
+        .updated {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 24px;
+        }
+        .week-label {
+            font-size: 0.85rem;
+            color: #888;
+            margin: 20px 0 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .week-row {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .day-card {
+            background: #1a1d27;
+            border-radius: 10px;
+            padding: 12px;
+            min-height: 80px;
+            border: 1px solid #2a2d3a;
+        }
+        .day-card.today {
+            border-color: #4f8ef7;
+            background: #1a2340;
+        }
+        .day-title {
+            font-size: 0.75rem;
+            color: #888;
+            margin-bottom: 8px;
+        }
+        .no-earnings {
+            color: #444;
+            font-size: 0.85rem;
+        }
+        .ticker-chip {
+            display: inline-block;
+            background: #2a2d3a;
+            border-radius: 6px;
+            padding: 4px 8px;
+            margin: 3px 2px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .ticker-chip:hover { background: #3a3f55; }
+        .badge-warn {
+            font-size: 0.75rem;
+            color: #f5a623;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 999;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal.active { display: flex; }
+        .modal-box {
+            background: #1a1d27;
+            border: 1px solid #2a2d3a;
+            border-radius: 12px;
+            padding: 28px;
+            min-width: 300px;
+        }
+        .modal-box h2 {
+            margin-bottom: 16px;
+            color: #fff;
+        }
+        .modal-box table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 16px;
+        }
+        .modal-box td {
+            padding: 8px;
+            border-bottom: 1px solid #2a2d3a;
+            font-size: 0.9rem;
+        }
+        .modal-box td:first-child { color: #888; }
+        .modal-box button {
+            background: #4f8ef7;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        .modal-box button:hover { background: #3a7de0; }
+    </style>
+</head>
+<body>
+    <h1>📅 Earnings Calendar</h1>
+    <div class="updated">Last updated: 2026-06-15 11:25 ET</div>
+    <div class="week-label">Jun 15 – Jun 19, 2026</div><div class="week-row"><div class="day-card today"><div class="day-title">Monday, Jun 15</div><div class="no-earnings">—</div></div><div class="day-card"><div class="day-title">Tuesday, Jun 16</div><div class="no-earnings">—</div></div><div class="day-card"><div class="day-title">Wednesday, Jun 17</div><div class="no-earnings">—</div></div><div class="day-card"><div class="day-title">Thursday, Jun 18</div><div class="no-earnings">—</div></div><div class="day-card"><div class="day-title">Friday, Jun 19</div><div class="no-earnings">—</div></div></div><div class="week-label">Jun 22 – Jun 26, 2026</div><div class="week-row"><div class="day-card"><div class="day-title">Monday, Jun 22</div><div class="no-earnings">—</div></div><div class="day-card"><div class="day-title">Tuesday, Jun 23</div><div class="no-earnings">—</div></div><div class="day-card"><div class="day-title">Wednesday, Jun 24</div><div class="no-earnings">—</div></div><div class="day-card"><div class="day-title">Thursday, Jun 25</div><div class="no-earnings">—</div></div><div class="day-card"><div class="day-title">Friday, Jun 26</div><div class="no-earnings">—</div></div></div><div class="week-label">Jun 29 – Jul 03, 2026</div><div class="week-row"><div class="day-card"><div class="day-title">Monday, Jun 29</div><div class="no-earnings">—</div></div><div class="day-card"><div class="day-title">Tuesday, Jun 30</div><div class="no-earnings">—</div></div><div class="day-card"><div class="day-title">Wednesday, Jul 01</div><div class="no-earnings">—</div></div><div class="day-card"><div class="day-title">Thursday, Jul 02</div><div class="no-earnings">—</div></div><div class="day-card"><div class="day-title">Friday, Jul 03</div><div class="no-earnings">—</div></div></div><div class="week-label">Jul 06 – Jul 10, 2026</div><div class="week-row"><div class="day-card"><div class="day-title">Monday, Jul 06</div><div class="no-earnings">—</div></div><div class="day-card"><div class="day-title">Tuesday, Jul 07</div><div class="no-earnings">—</div></div><div class="day-card"><div class="day-title">Wednesday, Jul 08</div><div class="no-earnings">—</div></div><div class="day-card"><div class="day-title">Thursday, Jul 09</div><div class="no-earnings">—</div></div><div class="day-card"><div class="day-title">Friday, Jul 10</div><div class="no-earnings">—</div></div></div><div class="week-label">Jul 13 – Jul 17, 2026</div><div class="week-row"><div class="day-card"><div class="day-title">Monday, Jul 13</div><div class="no-earnings">—</div></div><div class="day-card"><div class="day-title">Tuesday, Jul 14</div><div class="no-earnings">—</div></div><div class="day-card"><div class="day-title">Wednesday, Jul 15</div><div class="no-earnings">—</div></div><div class="day-card"><div class="day-title">Thursday, Jul 16</div><div class="no-earnings">—</div></div><div class="day-card"><div class="day-title">Friday, Jul 17</div><div class="no-earnings">—</div></div></div><div class="week-label">Jul 20 – Jul 24, 2026</div><div class="week-row"><div class="day-card"><div class="day-title">Monday, Jul 20</div><div class="no-earnings">—</div></div><div class="day-card"><div class="day-title">Tuesday, Jul 21</div><div class="no-earnings">—</div></div><div class="day-card"><div class="day-title">Wednesday, Jul 22</div><div class="no-earnings">—</div></div><div class="day-card"><div class="day-title">Thursday, Jul 23</div><div class="no-earnings">—</div></div><div class="day-card"><div class="day-title">Friday, Jul 24</div><div class="no-earnings">—</div></div></div><div class="week-label">Jul 27 – Jul 31, 2026</div><div class="week-row"><div class="day-card"><div class="day-title">Monday, Jul 27</div><div class="no-earnings">—</div></div><div class="day-card"><div class="day-title">Tuesday, Jul 28</div><div class="no-earnings">—</div></div><div class="day-card"><div class="day-title">Wednesday, Jul 29</div><div class="no-earnings">—</div></div><div class="day-card"><div class="day-title">Thursday, Jul 30</div><div class="no-earnings">—</div></div><div class="day-card"><div class="day-title">Friday, Jul 31</div><div class="no-earnings">—</div></div></div><div class="week-label">Aug 03 – Aug 07, 2026</div><div class="week-row"><div class="day-card"><div class="day-title">Monday, Aug 03</div><div class="no-earnings">—</div></div><div class="day-card"><div class="day-title">Tuesday, Aug 04</div><div class="no-earnings">—</div></div><div class="day-card"><div class="day-title">Wednesday, Aug 05</div><div class="no-earnings">—</div></div><div class="day-card"><div class="day-title">Thursday, Aug 06</div><div class="no-earnings">—</div></div><div class="day-card"><div class="day-title">Friday, Aug 07</div><div class="no-earnings">—</div></div></div>
+    
+    <script>
+        function openModal(id) {
+            document.getElementById(id).classList.add('active');
+        }
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('active');
+        }
+        window.addEventListener('click', function(e) {
+            document.querySelectorAll('.modal.active').forEach(m => {
+                if (e.target === m) m.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
